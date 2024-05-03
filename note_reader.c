@@ -63,14 +63,13 @@ int write_background()
  * Read or write the segments on single digits.
  * Note extensive error checking of arguments
  */
-static long vga_ball_ioctl(struct file *f, unsigned int cmd, int arg)
+static long vga_ball_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
 {
 	int chunk = write_background();
 
 	switch (cmd) {
 
 	case VGA_BALL_READ_BACKGROUND:
-	  	vla.background = dev.background;
 		if (copy_to_user((int *) arg, &chunk,
 				 sizeof(int)))
 			return -EACCES;
