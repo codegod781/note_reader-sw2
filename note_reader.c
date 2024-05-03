@@ -51,13 +51,11 @@ struct vga_ball_dev {
  * Write segments of a single digit
  * Assumes digit is in range and the device information has been set up
  */
-static void write_background(vga_ball_color_t *background)
+int write_background()
 {
-	int chunk;
-
-	chunk = ioread8(dev.virtbase);
+	int chunk = ioread8(dev.virtbase);
 	pr_info("Got chunk %d\n", chunk);
-
+	return chunk;
 }
 
 /*
@@ -65,22 +63,16 @@ static void write_background(vga_ball_color_t *background)
  * Read or write the segments on single digits.
  * Note extensive error checking of arguments
  */
-static long vga_ball_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
+static long vga_ball_ioctl(struct file *f, unsigned int cmd, int arg)
 {
-	vga_ball_arg_t vla;
+	int chunk = write_background();
 
 	switch (cmd) {
-	case VGA_BALL_WRITE_BACKGROUND:
-		// if (copy_from_user(&vla, (vga_ball_arg_t *) arg,
-		// 		   sizeof(vga_ball_arg_t)))
-		// 	return -EACCES;
-		write_background(&vla.background);
-		break;
 
 	case VGA_BALL_READ_BACKGROUND:
 	  	vla.background = dev.background;
-		if (copy_to_user((vga_ball_arg_t *) arg, &vla,
-				 sizeof(vga_ball_arg_t)))
+		if (copy_to_user((int *) arg, &chunk,
+				 sizeof(int)))
 			return -EACCES;
 		break;
 
@@ -138,7 +130,7 @@ static int __init vga_ball_probe(struct platform_device *pdev)
 	}
         
 	/* Set an initial color */
-        write_background(&beige);
+        write_background();
 
 	return 0;
 

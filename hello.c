@@ -15,18 +15,18 @@
 #include <string.h>
 #include <unistd.h>
 
-int vga_ball_fd;
+int notes_fd;
 
 /* Read and print the background color */
 void print_background_color() {
-  vga_ball_arg_t vla;
+  printf("call to kernel\n");
+  int chunk;
   
-  if (ioctl(vga_ball_fd, VGA_BALL_READ_BACKGROUND, &vla)) {
+  if (ioctl(notes_fd, VGA_BALL_READ_BACKGROUND, &chunk)) {
       perror("ioctl(VGA_BALL_READ_BACKGROUND) failed");
       return;
   }
-  printf("%02x %02x %02x\n",
-	 vla.background.red, vla.background.green, vla.background.blue);
+  printf("%02x\n", chunk);
 }
 
 /* Set the background color */
@@ -35,7 +35,7 @@ void set_background_color(const vga_ball_color_t *c)
   printf("set background called\n");
   vga_ball_arg_t vla;
   vla.background = *c;
-  if (ioctl(vga_ball_fd, VGA_BALL_WRITE_BACKGROUND, &vla)) {
+  if (ioctl(notes_fd, VGA_BALL_WRITE_BACKGROUND, &vla)) {
       perror("ioctl(VGA_BALL_SET_BACKGROUND) failed");
       return;
   }
@@ -63,7 +63,7 @@ int main()
 
   printf("VGA ball Userspace program started\n");
 
-  if ( (vga_ball_fd = open(filename, O_RDWR)) == -1) {
+  if ( (notes_fd = open(filename, O_RDWR)) == -1) {
     fprintf(stderr, "could not open %s\n", filename);
     return -1;
   }
@@ -73,7 +73,7 @@ int main()
 
   for (i = 0 ; i < 24 ; i++) {
     printf("Hello...\n");
-    set_background_color(&colors[i % COLORS ]);
+    print_background_color();
     usleep(400000);
   }
   
