@@ -66,13 +66,12 @@ int write_background(void)
 static long vga_ball_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
 {
 	// int chunk = write_background();
-
+	int chunk = 45;
 	
 
 	switch (cmd) {
 
 	case VGA_BALL_READ_BACKGROUND:
-		int chunk = 45;
 		if (copy_to_user((int *)arg, &chunk, sizeof(int)))
 			return -EACCES;
 		break;
