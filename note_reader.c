@@ -51,7 +51,7 @@ struct vga_ball_dev {
  * Write segments of a single digit
  * Assumes digit is in range and the device information has been set up
  */
-static void write_background()
+static void write_background(void)
 {
 	int chunk;
 
