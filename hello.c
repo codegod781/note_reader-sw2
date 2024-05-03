@@ -44,7 +44,7 @@ int main()
 {
   vga_ball_arg_t vla;
   int i;
-  static const char filename[] = "/dev/vga_ball";
+  static const char filename[] = "/dev/notes";
 
   static const vga_ball_color_t colors[] = {
     { 0xff, 0x00, 0x00 }, /* Red */
