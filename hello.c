@@ -20,13 +20,13 @@ int notes_fd;
 /* Read and print the background color */
 void print_background_color() {
   printf("call to kernel\n");
-  int chunk;
+  int arg;
   
-  if (ioctl(notes_fd, VGA_BALL_READ_BACKGROUND, &chunk)) {
+  if (ioctl(notes_fd, VGA_BALL_READ_BACKGROUND, &arg)) {
       perror("ioctl(VGA_BALL_READ_BACKGROUND) failed");
       return;
   }
-  printf("%02x\n", chunk);
+  printf("chunk  = %02x\n", arg);
 }
 
 /* Set the background color */

@@ -72,7 +72,7 @@ static long vga_ball_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
 	switch (cmd) {
 
 	case VGA_BALL_READ_BACKGROUND:
-		if (copy_to_user((int *)arg, &chunk, sizeof(int)))
+		if (copy_to_user((void __user *)arg, &chunk, sizeof(int)))
 			return -EACCES;
 		break;
 
