@@ -32,6 +32,7 @@ void print_background_color() {
 /* Set the background color */
 void set_background_color(const vga_ball_color_t *c)
 {
+  printf("set background called\n");
   vga_ball_arg_t vla;
   vla.background = *c;
   if (ioctl(vga_ball_fd, VGA_BALL_WRITE_BACKGROUND, &vla)) {
@@ -71,6 +72,7 @@ int main()
   print_background_color();
 
   for (i = 0 ; i < 24 ; i++) {
+    printf("Hello...\n");
     set_background_color(&colors[i % COLORS ]);
     usleep(400000);
   }
