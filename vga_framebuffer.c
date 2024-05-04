@@ -17,7 +17,7 @@
  * Check code style with
  * checkpatch.pl --file --no-tree vga_ball.c
  */
-
+ 
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/errno.h>

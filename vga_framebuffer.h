@@ -19,3 +19,4 @@ typedef struct {
 #define VGA_BALL_READ_BACKGROUND  _IOR(VGA_BALL_MAGIC, 2, vga_ball_arg_t *)
 
 #endif
+ 
