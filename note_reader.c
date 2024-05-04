@@ -66,7 +66,7 @@ int write_background(void)
 static long vga_ball_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
 {
 	// int chunk = write_background();
-	int chunk = 22;
+	int chunk = write_background();
 	
 
 	switch (cmd) {
