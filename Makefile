@@ -1,7 +1,7 @@
 ifneq (${KERNELRELEASE},)
 
 # KERNELRELEASE defined: we are being compiled as part of the Kernel
-        obj-m := note_reader.o
+        obj-m := vga_framebuffer.o note_reader.o
 
 else
 
@@ -19,7 +19,7 @@ clean:
 	${MAKE} -C ${KERNEL_SOURCE} SUBDIRS=${PWD} clean
 	${RM} hello
 
-TARFILES = Makefile README hello.c note_reader.h note_reader.c
+TARFILES = Makefile README vga_framebuffer.h vga_framebuffer.c hello.c note_reader.h note_reader.c
 TARFILE = lab3-sw.tar.gz
 .PHONY : tar
 tar : $(TARFILE)
